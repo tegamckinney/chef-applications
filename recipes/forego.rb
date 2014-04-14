@@ -1,16 +1,14 @@
+# Forego: a foreman alternative in Go
+# https://github.com/bukowskis/homebrew-bukowskis/blob/master/forego.rb
+
 case node["platform_family"]
     when 'mac_os_x'
         include_recipe "homebrewalt::default"
+        homebrewalt_tap "bukowskis/bukowskis"
 
-        package "gnu-tar" do
+        package "forego" do
           action [:install, :upgrade]
-        end
-
-        link "/usr/bin/tar" do
-            to "/usr/local/bin/gtar"
         end
     when 'debian'
         Chef::Log.debug("This recipe is OSX only")
 end
-
-
