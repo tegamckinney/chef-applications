@@ -86,3 +86,21 @@ git "/opt/skylab" do
     action :sync
 end
 
+execute "get-skylab" do
+    user node['current_user']
+    cwd "/usr/local/bin/"
+    command "curl -sSL https://raw.github.com/Kunstmaan/skylab/master/installer | php"
+end
+execute "mv-skylab" do
+    cwd "/usr/local/bin/"
+    command "mv skylab.phar /usr/local/bin/skylab"
+end
+
+link '/opt/jdk/default' do
+  to '/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home'
+  user 'root'
+end
+
+template "/etc/skylab.yml" do
+    source "skylab.yml.erb"
+end
